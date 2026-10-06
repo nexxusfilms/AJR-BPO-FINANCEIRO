@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* mantido o nome "serif" para não quebrar as classes font-serif já usadas — agora renderiza Manrope */
+  --font-serif: "Manrope", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* --- Paleta AJR (Manual da Marca / Nexxus) --- */
+  --color-natural-bg: #F5F1EA;        /* Areia — neutra quente, substitui o branco puro */
+  --color-natural-ink: #0E2A38;       /* Grafite Petróleo — texto base */
+  --color-natural-primary: #0E2A38;   /* Grafite Petróleo — primária, fundos e capas */
+  --color-natural-accent: #F2A03D;    /* Âmbar AJR — acento, números e todo CTA */
+  --color-natural-muted: #7A8A94;     /* Cinza Névoa — apoio, legendas, notas */
+  --color-natural-surface: #EAE3D6;   /* Areia mais fechada — superfícies e bordas */
+  --color-natural-cyan: #2BB3C0;      /* Ciano Dado — secundária, dados e tecnologia */
+  --color-natural-green: #1E9E6A;     /* Verde Conformidade — status "está em dia" */
+
+  @keyframes pulse-whatsapp {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  --animate-pulse-whatsapp: pulse-whatsapp 2s infinite ease-in-out;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-natural-bg);
+  color: var(--color-natural-ink);
+}
+
+/* Faixa diagonal ascendente em âmbar — grafismo de apoio recorrente (travessia / progressão) */
+.ajr-diagonal {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-natural-accent) 0,
+    var(--color-natural-accent) 2px,
+    transparent 2px,
+    transparent 11px
+  );
+}
