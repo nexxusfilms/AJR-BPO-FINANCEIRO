@@ -1428,6 +1428,17 @@ const WhatsAppFloatButton = () => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Falar no WhatsApp"
+    id="btn-whatsapp-flutuante"
+    data-track="whatsapp-flutuante"
+    onClick={() => {
+      const w = window as any;
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({
+        event: "whatsapp_flutuante_click",
+        button_id: "btn-whatsapp-flutuante",
+        button_text: "WhatsApp flutuante",
+      });
+    }}
     className="fixed bottom-5 right-5 md:bottom-8 md:right-8 z-40 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#25D366] text-white shadow-2xl shadow-black/30 flex items-center justify-center hover:scale-105 active:scale-95 transition-transform animate-pulse-whatsapp"
   >
     <WhatsAppIcon size={30} className="md:hidden" />
