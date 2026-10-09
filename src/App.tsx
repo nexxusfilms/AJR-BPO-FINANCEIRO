@@ -260,9 +260,21 @@ const Hero = ({ showPlansModal, setShowPlansModal }: { showPlansModal: boolean; 
     };
   }, []);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
+  const trackAgendar = () => {
+    const w = window as any;
+    w.dataLayer = w.dataLayer || [];
+    w.dataLayer.push({
+      event: "agendar_diagnostico_financeiro",
+      button_id: "btn-agendar-diagnostico-financeiro",
+      button_text: "Agendar Diagnóstico Financeiro",
+      servico: formData.servico || undefined,
+      plano: formData.plano || undefined,
+    });
+    if (typeof w.fbq === "function") w.fbq("track", "Lead");
+  };
+
+  const handleAgendar = () => {
+    trackAgendar();
 
     const nomeStr = formData.nome ? `\n- Nome: ${formData.nome}` : "";
     const emailStr = formData.email ? `\n- E-mail: ${formData.email}` : "";
@@ -277,6 +289,14 @@ const Hero = ({ showPlansModal, setShowPlansModal }: { showPlansModal: boolean; 
 
     const message = encodeURIComponent(`Olá AJR Contabilidade!\n\nVi o site e ${assunto}.${dadosBlock}`);
     window.open(`${WHATSAPP_URL}?text=${message}`, "_blank");
+
+    // mantém o botão na página tempo suficiente para o GTM/Pixel registrarem o clique
+    setTimeout(() => setSubmitted(true), 800);
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    handleAgendar();
   };
 
   const selectPlanFromModal = (planName: string) => {
@@ -570,7 +590,11 @@ const Hero = ({ showPlansModal, setShowPlansModal }: { showPlansModal: boolean; 
                     </button>
                   </div>
                   <button
-                    type="submit"
+                    type="button"
+                    id="btn-agendar-diagnostico-financeiro"
+                    name="agendar_diagnostico_financeiro"
+                    data-track="agendar-diagnostico-financeiro"
+                    onClick={handleAgendar}
                     className="w-full py-5 bg-natural-accent hover:brightness-95 text-natural-primary rounded-2xl font-black uppercase tracking-[0.2em] text-xs shadow-xl shadow-natural-accent/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] mt-6"
                   >
                     Agendar Diagnóstico Financeiro
